@@ -57,3 +57,11 @@ languages.get('/:name', (req, res) => {
             res.json(foundLanguage)
         })
 })
+
+// Get a random language:
+languages.get('/random', async (req, res) => {
+    const count = await Language.countDocuments(); //count the number of languages in the collection
+    const randomIndex = Math.floor(Math.random() * count) //get a random index between 0 and count
+    const language = await Language.findOne().skip(randomIndex) //find one language by skipping the random index
+    res.jason(language)
+})
